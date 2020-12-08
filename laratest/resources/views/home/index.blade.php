@@ -14,5 +14,7 @@
 	<br>
 	ID: {{$id}} <br>
 	Name: {{$name}}
+<br>
+	<h3 style="color:red;">{{session('msg')}}</h3>
 </body>
 </html>

@@ -25,7 +25,6 @@ Route::get('/',  function () {
 |--------------------------------------------------------------------------
 | login Routes
 |--------------------------------------------------------------------------
-|
 */
 Route::get('/login',  [loginController::class,'index']);
 Route::post('/login', [loginController::class,'verify']);
@@ -33,37 +32,48 @@ Route::post('/login', [loginController::class,'verify']);
 |--------------------------------------------------------------------------
 | logout Routes
 |--------------------------------------------------------------------------
-|
 */
 Route::get('/logout', [logoutController::class,'index']);
 /*
 |--------------------------------------------------------------------------
-| home Routes
+| middleware for Session
 |--------------------------------------------------------------------------
-|
 */
-Route::get('/home', [homeController::class,'index']);
+Route::group(['middleware'=>['sess']] , function(){
+
 /*
 |--------------------------------------------------------------------------
-| home Routes for create
+| home Routes
 |--------------------------------------------------------------------------
-|
 */
-Route::get('/create', [homeController::class,'create']);
-Route::get('/create', [homeController::class,'store']);
+Route::get('/home', [homeController::class,'index']);
+
 /*
 |--------------------------------------------------------------------------
 | home Routes for userlist
 |--------------------------------------------------------------------------
-|
 */
 Route::get('/userlist', [homeController::class,'userlist']);
 Route::get('/details/{id}', [homeController::class,'show']);
+
+/*
+|--------------------------------------------------------------------------
+| middleware for user type
+|--------------------------------------------------------------------------
+*/
+Route::group(['middleware'=>['usertype']] , function(){
+
+/*
+|--------------------------------------------------------------------------
+| home Routes for create
+|--------------------------------------------------------------------------
+*/
+Route::get('/create', [homeController::class,'create']);
+Route::post('/create', [homeController::class,'store']);
 /*
 |--------------------------------------------------------------------------
 | home Routes for edit
 |--------------------------------------------------------------------------
-|
 */
 Route::get('/edit/{id}', [homeController::class,'edit']);
 Route::get('/edit/{id}', [homeController::class,'update']);
@@ -71,12 +81,12 @@ Route::get('/edit/{id}', [homeController::class,'update']);
 |--------------------------------------------------------------------------
 | home Routes for delete
 |--------------------------------------------------------------------------
-|
 */
-Route::get('/delete/{id}', [homeController::class,'delete']);
-Route::get('/delete/{id}', [homeController::class,'destroy']);
+Route::get('/delete/{id}', [homeController::class,'delete'])->middleware('usertype');;
+Route::get('/delete/{id}', [homeController::class,'destroy'])->middleware('usertype');;
 
 
 
-
+});
+});
 
