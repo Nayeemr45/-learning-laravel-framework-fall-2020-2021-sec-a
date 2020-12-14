@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 class homeController extends Controller
 {
+
+
     function index(Request $req){
     	/*$data = ['id'=> 123, 'name'=> 'alamin'];
     	return view('home.index', $data);*/
@@ -51,7 +53,7 @@ class homeController extends Controller
 
     public function show($id){
         $users  = $this->getUserlist();
-        $arr = $users[$id-1];
+        //$arr = $users[$id-1];
         //echo implode(" || ",$arr);
         echo "<h4>Details :-</h4>"."<br>";
         echo "<a href='/userlist'>Back</a>"."<br>"."<br>";
@@ -67,22 +69,53 @@ class homeController extends Controller
 
     public function edit($id){
         //$user = $id
-        //return view('home.show')->with('user', $user);
+        $users  = $this->getUserlist();
+        return view('home.edit')->with('name', $users[$id-1]['name'])
+                                ->with('email', $users[$id-1]['email'])
+                                ->with('cgpa', $users[$id-1]['cgpa']);
     }
 
-    public function update($id){
-        //$user = $id
-        //return view('home.show')->with('user', $user);
+    public function update($id , Request $req){
+        /* echo $req->name;
+        echo $req->email;
+        echo $req->cgpa."<br>"; */
+        $users  = $this->getUserlist();
+        //print_r($users);
+        for($i=0; $i < count($users); $i++){
+            if($users[$i]['id'] == $id){
+                //echo $users[$i]['id']."<br>";
+                $users[$i]['name']=$req->name;
+                $users[$i]['email']=$req->email;
+                $users[$i]['cgpa']=$req->cgpa;
+            }
+        }
+        //print_r($users);
+        //$updateusers = 
+        return view('home.userlist')->with('users', $users);
+        
     }
 
     public function delete($id){
-        //$user = $id
-        //return view('home.show')->with('user', $user);
+        $users  = $this->getUserlist();
+        //print_r($users[$id-1]);
+        return view('home.delete')->with('name', $users[$id-1]['name'])
+                                ->with('email', $users[$id-1]['email'])
+                                ->with('cgpa', $users[$id-1]['cgpa']);
     }
 
     public function destroy($id){
-        //$user = $id
-        //return view('home.show')->with('user', $user);
+        $users  = $this->getUserlist();
+        //print_r($users);
+        for($i=0; $i < count($users); $i++){
+            if($users[$i]['id'] == $id){
+                unset($users[$i]);  
+                //print_r($users);
+            }
+            
+        }
+        //print_r($users);
+        //$updateusers = 
+       return view('home.userlist')->with('users', $users);
     }
 
     private function getUserlist(){

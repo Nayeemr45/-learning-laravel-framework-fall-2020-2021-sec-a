@@ -76,14 +76,14 @@ Route::post('/create', [homeController::class,'store']);
 |--------------------------------------------------------------------------
 */
 Route::get('/edit/{id}', [homeController::class,'edit']);
-Route::get('/edit/{id}', [homeController::class,'update']);
+Route::post('/edit/{id}', [homeController::class,'update']);
 /*
 |--------------------------------------------------------------------------
 | home Routes for delete
 |--------------------------------------------------------------------------
 */
 Route::get('/delete/{id}', [homeController::class,'delete'])->middleware('usertype');;
-Route::get('/delete/{id}', [homeController::class,'destroy'])->middleware('usertype');;
+Route::post('/delete/{id}', [homeController::class,'destroy'])->middleware('usertype');;
 
 
 
