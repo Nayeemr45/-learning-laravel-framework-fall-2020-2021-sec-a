@@ -34,8 +34,63 @@ class employeeController extends Controller
         }
     	
     }
+
+
+    public function create(){
+        return view('employee.create');
+    }
+
+    public function store(Request $req){
+        $product = new Product();
+        $product->product_name    = $req->product_name;
+        $product->quantity         = $req->quantity;
+        $product->price         = $req->price;
+
+        if($product->save()){
+        return redirect('/productlist');
+        }
+    }
     public function productlist(){
         $product  = Product::get();
-        return view('home.userlist')->with('users', $product);
+        return view('employee.productlist')->with('product', $product);
     }
+
+    public function edit($id){
+        //$user = $id;
+        $product  = Product::where('id' , $id)
+        ->first();
+        return view('employee.edit')->with('product_name' , $product->product_name)
+        ->with('quantity' , $product->quantity)
+        ->with('price' , $product->price);
+    }
+
+    public function update($id , Request $req){
+        //$user = new User();
+        $product  = Product::where('id' , $id);
+
+        $user->product_name    = $req->product_name;
+        $user->quantity         = $req->quantity;
+        $user->price         = $req->price;
+        $user->update();
+        return redirect('/productlist');
+        
+    }
+
+    public function delete($id){
+        $product  = Product::where('id' , $id)
+        ->first();
+        return view('employee.delete')->with('product_name' , $product->product_name)
+        ->with('quantity' , $product->quantity)
+        ->with('price' , $product->price);
+    }
+
+    public function destroy($id){
+        $product  = Product::destroy('id' , $id);
+
+        $product  = Product::get();
+        return view('employee.productlist')->with('product', $product);
+    }
+
+   
+
 }

@@ -86,11 +86,22 @@ Route::post('/edit/{id}', [homeController::class,'update']);
 | home Routes for delete
 |--------------------------------------------------------------------------
 */
-Route::get('/delete/{id}', [homeController::class,'delete'])->middleware('usertype');;
-Route::post('/delete/{id}', [homeController::class,'destroy'])->middleware('usertype');;
+Route::get('/delete/{id}', [homeController::class,'delete'])->middleware('usertype');
+Route::post('/delete/{id}', [homeController::class,'destroy'])->middleware('usertype');
 
 
 
 });
+Route::get('/create', [employeeController::class,'create']);
+Route::post('/create', [employeeController::class,'store']);
+
+Route::get('/edit/{id}', [employeeController::class,'edit']);
+Route::post('/edit/{id}', [employeeController::class,'update']);
+
+Route::get('/delete/{id}', [employeeController::class,'delete']);
+Route::post('/delete/{id}', [employeeController::class,'destroy']);
+
+
+
 });
 

@@ -6,7 +6,7 @@
 <body>
 
 	<h3>All User</h3>
-	<a href="/home">Back</a> |
+	<a href="/employee">Back</a> |
 	<a href="/logout">logout</a>
 
 	<br>
@@ -15,23 +15,21 @@
 	<table border="1">
 		<tr>
 			<td>ID</td>
-			<td>NAME</td>
-			<td>USERNAME</td>
-			<td>password</td>
-			<td>Contact no</td>
+			<td>Product Name</td>
+			<td>Quantity</td>
+			<td>Price</td>
 			<td>Action</td>
 		</tr>
 
-		@for($i=0; $i < count($users); $i++)
+		@for($i=0; $i < count($product); $i++)
 		<tr>
-			<td>{{$users[$i]['id']}}</td>
-			<td>{{$users[$i]['employee_name']}}</td>
-			<td>{{$users[$i]['username']}}</td>
-			<td>{{$users[$i]['password']}}</td>
-			<td>{{$users[$i]['contact_no']}}</td>
+			<td>{{$product[$i]['id']}}</td>
+			<td>{{$product[$i]['product_name']}}</td>
+			<td>{{$product[$i]['quantity']}}</td>
+			<td>{{$product[$i]['price']}}</td>
 			<td>
-				<a href="/edit/{{$users[$i]['id']}}">Edit</a> |
-				<a href="/delete/{{$users[$i]['id']}}">Delete</a> 
+				<a href="/edit/{{$product[$i]['id']}}">Edit</a> |
+				<a href="/delete/{{$product[$i]['id']}}">Delete</a> 
 			</td>
 		</tr>
 		@endfor
