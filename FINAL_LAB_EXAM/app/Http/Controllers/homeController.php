@@ -76,13 +76,13 @@ class homeController extends Controller
 
     public function update($id , Request $req){
         //$user = new User();
-        $user  = User::where('id' , $id);
+        $user  = User::find('id' , $id);
 
         $user->employee_name    = $req->employee_name;
         $user->username         = $req->username;
         $user->password         = $req->password;
         $user->contact_no       = $req->contact_no;
-        $user->update();
+        $user->save();
         return redirect('/userlist');
         
     }
@@ -106,5 +106,32 @@ class homeController extends Controller
        return view('home.userlist')->with('users', $users);
     }
 
-   
+    public function search_user(){
+        //$user = $id;
+        return view('home.search')->with('employee_name' , null)
+        ->with('username' , null)
+        ->with('password' , null)
+        ->with('contact_no' , null);;
+        
+     }
+    public function show_user(Request $req){
+        //$user = $id;
+        $name='hulu';
+        return response()->$name;
+        //return view('home.edit');
+        //echo $req->search;
+
+        /* $users  = User::where('username' , $req->search)
+        ->where('type', 'employee')
+        ->first();
+
+        //print_r((array)$users->username);
+        //echo $users->username;
+        return view('home.search')->with('employee_name' , $users->employee_name)
+        ->with('username' , $users->username)
+        ->with('password' , $users->password)
+        ->with('contact_no' , $users->contact_no); */
+
+     }
+     
 }

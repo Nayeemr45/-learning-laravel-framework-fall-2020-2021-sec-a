@@ -67,6 +67,9 @@ Route::get('/productlist', [employeeController::class,'productlist']);
 */
 Route::group(['middleware'=>['usertype']] , function(){
 
+
+Route::get('/search', [homeController::class,'search_user']);
+Route::post('/search', [homeController::class,'show_user'])->name('search.user');
 /*
 |--------------------------------------------------------------------------
 | home Routes for create
@@ -95,8 +98,8 @@ Route::post('/delete/{id}', [homeController::class,'destroy'])->middleware('user
 Route::get('/create', [employeeController::class,'create']);
 Route::post('/create', [employeeController::class,'store']);
 
-Route::get('/edit/{id}', [employeeController::class,'edit']);
-Route::post('/edit/{id}', [employeeController::class,'update']);
+Route::get('/editp/{id}', [employeeController::class,'edit']);
+Route::post('/editp/{id}', [employeeController::class,'update']);
 
 Route::get('/delete/{id}', [employeeController::class,'delete']);
 Route::post('/delete/{id}', [employeeController::class,'destroy']);
